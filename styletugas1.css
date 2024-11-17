@@ -1,0 +1,28 @@
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 10px;
+}
+th, td {
+    text-align: left;
+    padding: 10px;
+}
+th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+tr:hover {
+    background-color: #d9f0ff;
+}
+tr td:hover {
+    color: #007BFF;
+    font-weight: bold;
+}
