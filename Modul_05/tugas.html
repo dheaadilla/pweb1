@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Foto Alumni UNIKU</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Membagi menjadi 4 kolom */
+            gap: 20px;
+            padding: 20px;
+            justify-items: center; /* Tengah secara horizontal */
+        }
+        .gallery-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .gallery-item img {
+            max-width: 150px;
+            height: 200px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .gallery-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .gallery-item:hover img {
+            box-shadow: 0 0 15px 5px rgba(255, 255, 0, 0.7);
+        }
+        .gallery-item p {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            position: relative;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 90%;
+            max-height: 90%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Galeri Foto Alumni UNIKU</h1>
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="image/photo1.jpg" alt="Alumni Photo 1">
+            <p>Mads Mikkelsen</p>
+        </div>
+        <div class="gallery-item">
+            <img src="image/photo2.jpg" alt="Alumni Photo 2">
+            <p>Brad Pitt</p>
+        </div>
+        <div class="gallery-item">
+            <img src="image/photo3.jpg" alt="Alumni Photo 3">
+            <p>Adriana Lima</p>
+        </div>
+        <div class="gallery-item">
+            <img src="image/photo4.jpg" alt="Alumni Photo 4">
+            <p>Gisele Bundchen</p>
+        </div>
+        <div class="gallery-item">
+            <img src="image/photo5.jpg" alt="Alumni Photo 5">
+            <p>Anok Yai</p>
+        </div>
+        <div class="gallery-item">
+            <img src="image/photo6.jpg" alt="Alumni Photo 6">
+            <p>Natalie Portman</p>
+        </div>
+        <div class="gallery-item">
+            <img src="image/photo7.jpg" alt="Alumni Photo 7">
+            <p>Ian Somerhalder</p>
+        </div>
+        <div class="gallery-item">
+            <img src="image/photo8.jpg" alt="Alumni Photo 8">
+            <p>Chace Crawford</p>
+        </div>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="Selected Photo">
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="scripttugas.js"></script>
+</body>
+</html>
