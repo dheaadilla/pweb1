@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FKOM Berprestasi</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">FKOM Berprestasi</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Beranda <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tentang Kami</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acara</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Header -->
+        <header class="jumbotron">
+            <h1 class="display-4">Pendaftaran Mahasiswa Berprestasi FKOM</h1>
+            <p class="lead">Daftarkan diri Anda sebagai mahasiswa berprestasi di Fakultas Ilmu Komputer.</p>
+        </header>
+
+        <!-- Form Section -->
+<div class="container">
+    <div class="form-section">
+        <h2 class="text-center">Formulir Pendaftaran</h2>
+        <form enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Nama Lengkap</label>
+                <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="nim">NIM</label>
+                <input type="text" class="form-control" id="nim" placeholder="Masukkan NIM Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Masukkan email Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Nomor Telepon</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Masukkan nomor telepon Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="field">Bidang Prestasi</label>
+                <select class="form-control" id="field" required>
+                    <option value="" disabled selected>Pilih bidang prestasi Anda</option>
+                    <option>Pendidikan</option>
+                    <option>Teknologi</option>
+                    <option>Sosial Budaya</option>
+                    <option>Kewirausahaan</option>
+                    <option>Pertanian</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="achievement">Deskripsi Prestasi</label>
+                <textarea class="form-control" id="achievement" rows="4" placeholder="Jelaskan prestasi Anda secara singkat" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="cv">Unggah CV (maks 10MB)</label>
+                <input type="file" class="form-control-file" id="cv" accept=".pdf,.doc,.docx" required>
+            </div>
+            <div class="form-group">
+                <label for="portfolio">Unggah Portofolio Aksi (maks 10MB)</label>
+                <input type="file" class="form-control-file" id="portfolio" accept=".pdf,.doc,.docx,.zip,.rar" required>
+            </div>
+            <div class="form-group">
+                <label for="certificate">Unggah Sertifikat (maks 10MB)</label>
+                <input type="file" class="form-control-file" id="certificate" accept=".pdf,.jpg,.png,.jpeg" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Kirim Pendaftaran</button>
+        </form>
+    </div>
+</div>
+
+
+        <section class="container my-5">
+            <h2>Timeline Kegiatan</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="image/pendaftaran.jpg" style="height: 200px" class="card-img-top" alt="Administrasi & Pendaftaran">
+                        <div class="card-body">
+                            <h5 class="card-title">Administrasi & Pendaftaran</h5>
+                            <p class="card-text">Pendaftaran dan pengumpulan berkas-berkas yang dibutuhkan (CV, portofolio aksi, dan sertifikat).</p>
+                            <p><strong>Tanggal Batas Pengiriman:</strong> 8 Desember 2024</p>
+                            <a href="#" class="btn btn-primary">Lebih Lanjut</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="image/wawancara.jpg" style="height: 200px" class="card-img-top" alt="Presentasi Aksi & Wawancara">
+                        <div class="card-body">
+                            <h5 class="card-title">Presentasi Aksi & Wawancara</h5>
+                            <p class="card-text">Melakukan presentasi portofolio aksi sekaligus wawancara dengan para juri.</p>
+                            <p><strong>Lokasi Wawancara:</strong> Fakultas Ilmu Komputer Universitas Kuningan</p>
+                            <p><strong>Tanggal Wawancara:</strong> 9-11 Desember 2024</p>
+                            <a href="#" class="btn btn-primary">Lebih Lanjut</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="image/penganugerahan.jpg" style="height: 200px" class="card-img-top" alt="Penganugerahan">
+                        <div class="card-body">
+                            <h5 class="card-title">Penganugerahan</h5>
+                            <p class="card-text">Malam penganugerahan kepada top 3 dari seluruh bidang.</p>
+                            <p><strong>Lokasi Penganugerahan:</strong> Gedung Sate, Bandung</p>
+                            <p><strong>Tanggal Penganugerahan:</strong> 13 Desember 2024</p>
+                            <a href="#" class="btn btn-primary">Lebih Lanjut</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-light text-center py-3 mt-4">
+            <p>&copy; 2024 Fakultas Ilmu Komputer, Universitas Kuningan. Hak Cipta Dilindungi.</p>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
