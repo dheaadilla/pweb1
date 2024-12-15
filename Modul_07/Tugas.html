@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lowongan Kerja CRUD</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Manajemen Lowongan Kerja</h2>
+
+        <!-- Form untuk menambah atau mengedit lowongan -->
+        <form id="jobForm" class="mb-4">
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label for="jobKode">Kode Lowongan</label>
+                    <input type="text" class="form-control" id="jobKode" placeholder="Kode" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="jobPosisi">Posisi</label>
+                    <input type="text" class="form-control" id="jobPosisi" placeholder="Posisi" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="jobPerusahaan">Perusahaan</label>
+                    <input type="text" class="form-control" id="jobPerusahaan" placeholder="Perusahaan" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="jobLokasi">Lokasi</label>
+                    <input type="text" class="form-control" id="jobLokasi" placeholder="Lokasi" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="jobStatus">Status</label>
+                    <input type="text" class="form-control" id="jobStatus" placeholder="Status" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="jobDeskripsi">Deskripsi</label>
+                    <input type="text" class="form-control" id="jobDeskripsi" placeholder="Deskripsi" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Tambah/Perbarui Lowongan</button>
+        </form>
+
+        <!-- Form Pencarian -->
+        <div class="mb-4">
+            <input type="text" id="searchInput" class="form-control" placeholder="Cari lowongan berdasarkan Kode, Posisi, Perusahaan, atau Lokasi">
+        </div>
+
+        <!-- Tabel untuk menampilkan data lowongan -->
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Kode</th>
+                    <th>Posisi</th>
+                    <th>Perusahaan</th>
+                    <th>Lokasi</th>
+                    <th>Status</th>
+                    <th>Deskripsi</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="jobTableBody">
+                <!-- Data lowongan akan ditampilkan di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            const script_url = 'https://script.google.com/macros/s/AKfycbzJEsZtcVmc9gbwXNc64fNxUwSXvaGup63CYAgcvaEIwUcaPmTz00s9bLg4ABCV17rk/exec'; // Ganti dengan URL endpoint Apps Script Anda
+
+            // Fungsi untuk memuat data lowongan
+            function loadJobs(query = '') {
+                $.ajax({
+                    url: script_url,
+                    type: "GET",
+                    data: { action: "read" },
+                    dataType: "json",
+                    success: function(response) {
+                        const tbody = $('#jobTableBody');
+                        tbody.empty();
+                        const filteredJobs = response.filter(job => {
+                            const kode = String(job.Kode).toLowerCase();
+                            const posisi = String(job.Posisi).toLowerCase();
+                            const perusahaan = String(job.Perusahaan).toLowerCase();
+                            const lokasi = String(job.Lokasi).toLowerCase();
+
+                            return kode.includes(query.toLowerCase()) ||
+                                   posisi.includes(query.toLowerCase()) ||
+                                   perusahaan.includes(query.toLowerCase()) ||
+                                   lokasi.includes(query.toLowerCase());
+                        });
+                        filteredJobs.forEach(job => {
+                            tbody.append(`
+                                <tr>
+                                    <td>${job.Kode}</td>
+                                    <td>${job.Posisi}</td>
+                                    <td>${job.Perusahaan}</td>
+                                    <td>${job.Lokasi}</td>
+                                    <td>${job.Status}</td>
+                                    <td>${job.Deskripsi}</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm editBtn" data-id="${job.Kode}">Edit</button>
+                                        <button class="btn btn-danger btn-sm deleteBtn" data-id="${job.Kode}">Delete</button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    },
+                    error: function(err) {
+                        console.error("Gagal memuat data:", err);
+                    }
+                });
+            }
+
+            loadJobs();
+
+            $('#jobForm').on('submit', function(event) {
+                event.preventDefault();
+                const kode = $('#jobKode').val();
+                const posisi = $('#jobPosisi').val();
+                const perusahaan = $('#jobPerusahaan').val();
+                const lokasi = $('#jobLokasi').val();
+                const status = $('#jobStatus').val();
+                const deskripsi = $('#jobDeskripsi').val();
+
+                $.ajax({
+                    url: script_url,
+                    type: "GET",
+                    data: { kode: kode, posisi: posisi, perusahaan: perusahaan, lokasi: lokasi, status: status, deskripsi: deskripsi, action: 'insert' },
+                    success: function(response) {
+                        alert(response.result);
+                        loadJobs();
+                        $('#jobForm')[0].reset();
+                    },
+                    error: function(err) {
+                        console.error("Gagal mengirim data:", err);
+                    }
+                });
+            });
+
+            $(document).on('click', '.deleteBtn', function() {
+                const kode = $(this).data('id');
+                $.ajax({
+                    url: script_url,
+                    type: "GET",
+                    data: { kode: kode, action: 'delete' },
+                    success: function(response) {
+                        alert(response.result);
+                        loadJobs();
+                    },
+                    error: function(err) {
+                        console.error("Gagal menghapus data:", err);
+                    }
+                });
+            });
+
+            $(document).on('click', '.editBtn', function() {
+                const kode = $(this).data('id');
+                $.ajax({
+                    url: script_url,
+                    type: "GET",
+                    data: { kode: kode, action: 'edit' },
+                    success: function(response) {
+                        const job = response;
+                        $('#jobKode').val(job.Kode);
+                        $('#jobPosisi').val(job.Posisi);
+                        $('#jobPerusahaan').val(job.Perusahaan);
+                        $('#jobLokasi').val(job.Lokasi);
+                        $('#jobStatus').val(job.Status);
+                        $('#jobDeskripsi').val(job.Deskripsi);
+                        $('#submitBtn').text('Perbarui Lowongan');
+                    },
+                    error: function(err) {
+                        console.error("Gagal mengedit data:", err);
+                    }
+                });
+            });
+
+            // Fungsi pencarian
+            $('#searchInput').on('input', function() {
+                const query = $(this).val();
+                loadJobs(query);
+            });
+        });
+    </script>
+</body>
+</html>

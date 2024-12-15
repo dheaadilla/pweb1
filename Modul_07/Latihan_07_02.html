@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buku Tamu CRUD</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Buku Tamu</h2>
+
+    <!-- Form untuk menambah tamu -->
+    <form id="guestForm" class="mb-4">
+        <div class="form-group">
+            <label for="guestKode">Kode:</label>
+            <input type="text" class="form-control" id="guestKode" required>
+        </div>
+        <div class="form-group">
+            <label for="guestNama">Nama:</label>
+            <input type="text" class="form-control" id="guestNama" required>
+        </div>
+        <div class="form-group">
+            <label for="guestEmail">Email:</label>
+            <input type="email" class="form-control" id="guestEmail" required>
+        </div>
+        <div class="form-group">
+            <label for="guestPesan">Pesan:</label>
+            <input type="text" class="form-control" id="guestPesan" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Add Guest
+            
+        </button>
+    </form>
+
+    <!-- Tabel untuk menampilkan data tamu -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Kode</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Pesan</th>
+            </tr>
+        </thead>
+        <tbody id="guestTableBody">
+            <!-- Data tamu akan ditampilkan di sini -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+$(document).ready(function() {
+    const script_url = 'https://script.google.com/macros/s/AKfycbywYuoh10aXu-6r-hH9h385NrMLa7PPp40mKL2-3US3EI30DzH8Jjzh56SA-c8SC90w7A/exec'; // Ganti dengan URL endpoint Apps Script Anda
+
+    // Fungsi untuk memuat data tamu ke dalam tabel
+    function loadGuests() {
+        $.ajax({
+            url: script_url,
+            type: "GET",
+            data: { action: "read" },
+            dataType: "json",
+            success: function(response) {
+                const tbody = $('#guestTableBody');
+                tbody.empty(); // Kosongkan tabel sebelum mengisi ulang
+                response.forEach(guest => {
+                    tbody.append(`
+                        <tr>
+                            <td>${guest.Kode}</td>
+                            <td>${guest.Nama}</td>
+                            <td>${guest.Email}</td>
+                            <td>${guest.Pesan}</td>
+                        </tr>
+                    `);
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Gagal memuat data:", textStatus, errorThrown);
+            }
+        });
+    }
+
+    // Panggil fungsi untuk memuat data saat halaman pertama kali dibuka
+    loadGuests();
+
+    // Fungsi untuk menangani pengiriman form
+    $('#guestForm').on('submit', function(event) {
+        event.preventDefault();
+        const kode = $('#guestKode').val();
+        const nama = $('#guestNama').val();
+        const email = $('#guestEmail').val();
+        const pesan = $('#guestPesan').val();
+
+        $.ajax({
+            url: script_url,
+            type: "GET",
+            dataType: "json",
+            data: { kode: kode, nama: nama, email: email, pesan: pesan, action: 'insert' },
+            success: function(response) {
+                alert(response.result); // Menampilkan notifikasi berhasil
+                loadGuests(); // Perbarui tabel
+                $('#guestForm')[0].reset(); // Reset form setelah pengiriman
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Gagal mengirim data:", textStatus, errorThrown);
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
